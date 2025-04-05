@@ -1,24 +1,36 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users
+Column	           | Type	  | Options
+------------------------------------------
+name	             | string	| null: false
+email	             | string	| null: false, unique: true
+encrypted_password | string	| null: false
+worktime           | string | null: false
+eligibility        | string | null: false
 
-Things you may want to cover:
+  has_many :schedules  
+  has_many :clients, through: :schedules
 
-* Ruby version
+## clients
+Column	           | Type	  | Options
+------------------------------------------
+name               | string	| null: false
+address	           | string	| null: false
+insurance        	 | string	| null: false
+addition           | string |
+memo               | string |
 
-* System dependencies
+has_many :schedules  
+has_many :users, through: :schedules
 
-* Configuration
+## schedules
+user               | references	| null: false, foreign_key: true
+client             | references	| null: false, foreign_key: true
+weekday            | string	| null: false
+timeslot           | string	| null: false
+duration           | string	| null: false
+memo               | string	| 
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+belongs_to :user  
+belongs_to :client
