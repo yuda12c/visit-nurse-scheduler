@@ -1,5 +1,11 @@
 <!-- app/views/schedules/index.html.erb -->
-<h1>スケジュール一覧</h1>
+<h1><%= @selected_weekday %>のスケジュール一覧</h1>
+
+<div style="margin-bottom: 20px;">
+  <% %w(月 火 水 木 金 土 日).each do |day| %>
+    <%= link_to "#{day}曜日", schedules_path(weekday: day), style: "margin-right: 10px;" %>
+  <% end %>
+</div>
 
 <%= link_to "新規スケジュールを登録", new_schedule_path, class: "button" %>
 
