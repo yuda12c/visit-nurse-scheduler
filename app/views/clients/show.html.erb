@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @client %>
+
+<div>
+  <%= link_to "患者情報を編集する", edit_client_path(@client) %> |
+  <%= link_to "患者情報一覧", clients_path %>
+
+  <%= button_to "情報を削除する", @client, method: :delete %>
+</div>
