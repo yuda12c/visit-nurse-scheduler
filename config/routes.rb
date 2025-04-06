@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  root "schedules#index"
 
+  resources :schedules
+  resources :clients
+  devise_for :users
 end
