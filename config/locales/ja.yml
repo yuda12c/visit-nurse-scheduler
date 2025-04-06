@@ -1,0 +1,19 @@
+ja:
+  activerecord:
+    models:
+      client: クライアント
+    attributes:
+      client:
+        name: 名前
+        address: 住所
+        insurance: 保険の種類
+        addition: 加算情報
+        memo: メモ
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: を入力してください
+      taken: はすでに存在します
+      too_short: は%{count}文字以上で入力してください
+      too_long: は%{count}文字以下で入力してください
+      invalid: が正しくありません

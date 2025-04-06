@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>患者情報一覧</h1>
+
+<div id="clients">
+  <% @clients.each do |client| %>
+    <%= render client %>
+    <p>
+      <%= link_to "患者詳細", client %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "患者新規登録", new_client_path %>

@@ -1,0 +1,50 @@
+<h1>スケジュール登録</h1>
+
+<%= form_with(model: @schedule) do |form| %>
+  <% if @schedule.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(@schedule.errors.count, "件のエラー") %>があります：</h2>
+      <ul>
+        <% @schedule.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, "担当スタッフ" %><br>
+    <%= form.collection_select :user_id, User.all, :id, :name, prompt: "担当スタッフを選択" %>
+  </div>
+
+  <div>
+    <%= form.label :client_id, "利用者" %><br>
+    <%= form.collection_select :client_id, Client.all, :id, :name, prompt: "利用者を選択" %>
+  </div>
+
+  <div>
+    <%= form.label :weekday, "曜日" %><br>
+    <%= form.select :weekday, %w(月 火 水 木 金 土), prompt: "曜日を選択" %>
+  </div>
+
+  <div>
+    <%= form.label :timeslot, "希望時間帯" %><br>
+    <%= form.select :timeslot, %w(午前 午後 夕方), prompt: "時間帯を選択" %>
+  </div>
+
+  <div>
+    <%= form.label :duration, "訪問時間" %><br>
+    <%= form.text_field :duration, placeholder: "例：1000-1100" %>
+  </div>
+
+  <div>
+    <%= form.label :memo, "メモ" %><br>
+    <%= form.text_field :memo %>
+  </div>
+
+  <div>
+    <%= form.submit "登録する" %>
+  </div>
+<% end %>
+
+<%= link_to "スケジュール一覧に戻る", root_path %>

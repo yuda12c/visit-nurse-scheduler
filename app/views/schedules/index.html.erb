@@ -1,0 +1,27 @@
+<!-- app/views/schedules/index.html.erb -->
+<h1>スケジュール一覧</h1>
+
+<%= link_to "新規スケジュールを登録", new_schedule_path, class: "button" %>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>曜日</th>
+      <th>時間帯</th>
+      <th>利用者</th>
+      <th>訪問時間</th>
+      <th>メモ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.weekday %></td>
+        <td><%= schedule.timeslot %></td>
+        <td><%= schedule.client&.name %></td>
+        <td><%= schedule.duration %></td>
+        <td><%= schedule.memo %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
