@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_06_040213) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_06_062733) do
   create_table "clients", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "address", null: false
@@ -30,6 +30,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_06_040213) do
     t.string "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "start_time"
+    t.time "end_time"
     t.index ["client_id"], name: "index_schedules_on_client_id"
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end

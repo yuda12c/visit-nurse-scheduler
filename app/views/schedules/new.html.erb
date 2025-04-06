@@ -32,10 +32,15 @@
     <%= form.select :timeslot, %w(午前 午後 夕方), prompt: "時間帯を選択" %>
   </div>
 
-  <div>
-    <%= form.label :duration, "訪問時間" %><br>
-    <%= form.text_field :duration, placeholder: "例：1000-1100" %>
-  </div>
+<div>
+  <%= form.label :start_time, "開始時刻" %><br>
+  <%= form.time_select :start_time, minute_step: 5 %>
+</div>
+
+<div>
+  <%= form.label :end_time, "終了時刻" %><br>
+  <%= form.time_select :end_time, minute_step: 5 %>
+</div>
 
   <div>
     <%= form.label :memo, "メモ" %><br>

@@ -1,5 +1,7 @@
 <!-- app/views/schedules/index.html.erb -->
 <h1><%= @selected_weekday %>のスケジュール一覧</h1>
+<% time_slots = ["8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00",
+                 "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"] %>
 
 <div style="margin-bottom: 20px;">
   <% %w(月 火 水 木 金 土 日).each do |day| %>
@@ -12,21 +14,33 @@
 <table border="1" cellpadding="8" cellspacing="0">
   <thead>
     <tr>
-      <th>曜日</th>
       <th>時間帯</th>
-      <th>利用者</th>
-      <th>訪問時間</th>
-      <th>メモ</th>
+      <% @users.each do |user| %>
+        <th><%= user.name %></th>
+      <% end %>
     </tr>
   </thead>
-  <tbody>
-    <% @schedules.each do |schedule| %>
+
+    <tbody>
+    <% time_slots.each do |time| %>
       <tr>
-        <td><%= schedule.weekday %></td>
-        <td><%= schedule.timeslot %></td>
-        <td><%= schedule.client&.name %></td>
-        <td><%= schedule.duration %></td>
-        <td><%= schedule.memo %></td>
+        <td><%= time %></td>
+        <% @users.each do |user| %>
+          <% match = @schedules.find do |s| 
+            s.user_id == user.id && 
+            s.start_time.present? && s.end_time.present? &&
+            Time.parse(time) >= s.start_time && Time.parse(time) < s.end_time
+          end %>
+
+          <td>
+            <% if match %>
+              <%= match.client.name %><br>
+              <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %>
+            <% else %>
+              空き
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

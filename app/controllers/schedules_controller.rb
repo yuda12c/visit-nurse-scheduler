@@ -3,6 +3,7 @@ class SchedulesController < ApplicationController
     selected_day = params[:weekday] || "月"
     @selected_weekday = selected_day
     @schedules = Schedule.includes(:client, :user).where(weekday: selected_day).order(:timeslot)
+    @users = User.order(:id)
   end
 
   def new
@@ -21,6 +22,6 @@ class SchedulesController < ApplicationController
   private
 
   def schedule_params
-    params.require(:schedule).permit(:user_id, :client_id, :weekday, :timeslot, :duration, :memo)
+    params.require(:schedule).permit(:user_id, :client_id, :weekday, :timeslot, :duration, :memo, :start_time, :end_time)
   end
 end
