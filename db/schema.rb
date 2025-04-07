@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_07_120000) do
     t.bigint "client_id", null: false
     t.string "weekday", null: false
     t.string "timeslot", null: false
-    t.string "duration", null: false
+    t.string "duration"
     t.string "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

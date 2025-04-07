@@ -4,7 +4,7 @@
                  "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"] %>
 
 <div style="margin-bottom: 20px;">
-  <% %w(月 火 水 木 金 土 日).each do |day| %>
+  <% %w(月 火 水 木 金 土 ).each do |day| %>
     <%= link_to "#{day}曜日", schedules_path(weekday: day), style: "margin-right: 10px;" %>
   <% end %>
 </div>
@@ -21,27 +21,52 @@
     </tr>
   </thead>
 
-    <tbody>
-    <% time_slots.each do |time| %>
-      <tr>
-        <td><%= time %></td>
-        <% @users.each do |user| %>
-          <% match = @schedules.find do |s| 
-            s.user_id == user.id && 
-            s.start_time.present? && s.end_time.present? &&
-            Time.parse(time) >= s.start_time && Time.parse(time) < s.end_time
-          end %>
+<tbody>
+<% rendered_cells = {} %>
 
-          <td>
-            <% if match %>
-              <%= match.client.name %><br>
-              <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %>
-            <% else %>
-              空き
-            <% end %>
-          </td>
+<% time_slots.each do |time| %>
+  <tr>
+    <td><%= time %></td>
+    <% @users.each do |user| %>
+      <% key = "#{user.id}-#{time}" %>
+      <% if rendered_cells[key] %>
+        <%# すでに表示したセルならスキップ %>
+        <% next %>
+      <% end %>
+
+      <% match = @schedules.find do |s|
+      s.user_id == user.id &&
+      s.start_time.present? && s.end_time.present? &&
+      s.start_time.strftime("%H:%M") < (Time.parse(time) + 30.minutes).strftime("%H:%M") &&
+      s.end_time.strftime("%H:%M") > time
+      end %>
+
+      <% if match %>
+        <% # row数（30分刻み）を計算 %>
+        <% start_index = time_slots.index(time) %>
+        <% end_index = time_slots.index(match.end_time.strftime("%H:%M")) || time_slots.length %>
+        <% rowspan = end_index - start_index %>
+
+        <%# 表示済みフラグを立てておく %>
+        <% (start_index...end_index).each do |i| %>
+          <% rendered_cells["#{user.id}-#{time_slots[i]}"] = true %>
         <% end %>
-      </tr>
+
+        <td rowspan="<%= rowspan %>" style="background-color: #d1f0d1;">
+          <%= button_to "#{match.client.name}",
+              schedule_path(match),
+              method: :delete,
+              data: { confirm: "削除しますか？" },
+              form: { style: "display:inline;" },
+              style: "background:none; border:none; color:red; text-decoration:underline; cursor:pointer;" %><br>
+
+      <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %>
+        </td>
+      <% else %>
+        <td style="background-color: #f0f0f0;"></td>
+      <% end %>
     <% end %>
+  </tr>
+<% end %>
   </tbody>
 </table>
