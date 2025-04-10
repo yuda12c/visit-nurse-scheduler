@@ -1,0 +1,16 @@
+<div style="position: fixed; top: 20%; left: 30%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 999;">
+  <h3>スケジュール詳細</h3>
+  <p><strong>患者:</strong> <%= schedule.client.name %></p>
+  <p><strong>担当者:</strong> <%= schedule.user.name %></p>
+  <p><strong>開始時刻:</strong> <%= schedule.start_time.strftime("%H:%M") %></p>
+  <p><strong>終了時刻:</strong> <%= schedule.end_time.strftime("%H:%M") %></p>
+
+  <!-- 閉じるボタン -->
+  <button onclick="document.getElementById('schedule-detail-modal').style.display='none'">閉じる</button>
+
+  <!-- 編集へのリンク（後ほどモーダル対応可能） -->
+  <%= link_to "編集", edit_schedule_path(schedule), class: "button" %>
+
+  <!-- 削除ボタン -->
+  <%= button_to "削除", schedule_path(schedule), method: :delete, data: { confirm: "削除しますか？" }, class: "button", form: { style: "display:inline;" } %>
+</div>

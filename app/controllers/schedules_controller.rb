@@ -25,6 +25,13 @@ class SchedulesController < ApplicationController
     redirect_to schedules_path(weekday: @schedule.weekday), notice: "スケジュールを削除しました。"
   end
 
+  def show
+    @schedule = Schedule.find(params[:id])
+    respond_to do |format|
+      format.html { render partial: "detail", locals: { schedule: @schedule } }
+    end
+  end
+
   private
 
   def schedule_params

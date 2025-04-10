@@ -53,6 +53,16 @@
         <% end %>
 
         <td rowspan="<%= rowspan %>" style="background-color: #d1f0d1;">
+        <!-- 詳細を見るボタン（非同期でモーダル表示） -->
+          <button
+            class="show-detail-button"
+            data-id="<%= match.id %>"
+            style="background:none; border:none; color:blue; text-decoration:underline; cursor:pointer;">
+            <%= match.client.name %>
+          </button><br>
+
+          <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %><br>
+
           <%= button_to "#{match.client.name}",
               schedule_path(match),
               method: :delete,
@@ -70,3 +80,5 @@
 <% end %>
   </tbody>
 </table>
+<!-- 詳細モーダルの表示先 -->
+<div id="schedule-detail-modal" style="display: none;"></div>
