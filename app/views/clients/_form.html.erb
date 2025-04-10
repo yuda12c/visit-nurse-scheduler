@@ -12,18 +12,29 @@
   <% end %>
 
  <div>
-    <%= form.label :name, "名前", style: "display: block" %>
+    <%= form.label :name do %>
+      名前 <span style="color: red;">*</span>
+    <% end %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :address, "住所", style: "display: block" %>
+    <%= form.label :address do %>
+      住所 <span style="color: red;">*</span>
+    <% end %>
     <%= form.text_field :address %>
   </div>
 
   <div>
-    <%= form.label :insurance, "保険の種類", style: "display: block" %>
-    <%= form.text_field :insurance %>
+    <%= form.label :insurance do %>
+      保険の種類 <span style="color: red;">*</span>
+    <% end %><br>
+
+    <%= check_box_tag 'client[insurance][]', '介護', client.insurance.include?('介護'), id: 'client_insurance_kaigo' %>
+    <%= label_tag 'client_insurance_kaigo', '介護' %><br>
+
+    <%= check_box_tag 'client[insurance][]', '医療', client.insurance.include?('医療'), id: 'client_insurance_iryo' %>
+    <%= label_tag 'client_insurance_iryo', '医療' %>
   </div>
 
   <div>
