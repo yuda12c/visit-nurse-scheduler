@@ -22,13 +22,24 @@ class SchedulesController < ApplicationController
   def destroy
     @schedule = Schedule.find(params[:id])
     @schedule.destroy
-    redirect_to schedules_path(weekday: @schedule.weekday), notice: "スケジュールを削除しました。"
+  
+    respond_to do |format|
+      format.js   # destroy.js.erb を返す
+      format.html { redirect_to schedules_path, notice: "削除しました" }
+    end
   end
 
   def show
     @schedule = Schedule.find(params[:id])
     respond_to do |format|
       format.html { render partial: "detail", locals: { schedule: @schedule } }
+    end
+  end
+
+  def edit
+    @schedule = Schedule.find(params[:id])
+    respond_to do |format|
+      format.html { render partial: "form", locals: { schedule: @schedule } }
     end
   end
 

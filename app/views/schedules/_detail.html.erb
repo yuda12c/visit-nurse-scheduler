@@ -8,9 +8,22 @@
   <!-- 閉じるボタン -->
   <button onclick="document.getElementById('schedule-detail-modal').style.display='none'">閉じる</button>
 
-  <!-- 編集へのリンク（後ほどモーダル対応可能） -->
-  <%= link_to "編集", edit_schedule_path(schedule), class: "button" %>
+  <!-- 編集ボタン（非同期でフォーム取得） -->
+  <button
+    class="edit-schedule-button"
+    data-id="<%= schedule.id %>"
+    style="margin-top: 10px;">
+    編集する
+  </button>
+
+  <!-- 編集フォームモーダルの表示先 -->
+  <div id="edit-schedule-modal" style="display: none;"></div>
 
   <!-- 削除ボタン -->
-  <%= button_to "削除", schedule_path(schedule), method: :delete, data: { confirm: "削除しますか？" }, class: "button", form: { style: "display:inline;" } %>
-</div>
+  <button
+  class="delete-schedule-button"
+  data-id="<%= schedule.id %>"
+  data-confirm="削除しますか？"
+  style="color: red; margin-top: 10px;">
+  削除する
+</button>

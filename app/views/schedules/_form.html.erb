@@ -1,0 +1,17 @@
+<div style="background: white; padding: 20px; border-radius: 10px;">
+  <%= form_with(model: schedule, remote: true) do |form| %>
+    <div>
+      <%= form.label :start_time %>
+      <%= form.datetime_select :start_time %>
+    </div>
+
+    <div>
+      <%= form.label :end_time %>
+      <%= form.datetime_select :end_time %>
+    </div>
+
+    <div>
+      <%= form.submit "更新する" %>
+    </div>
+  <% end %>
+</div>

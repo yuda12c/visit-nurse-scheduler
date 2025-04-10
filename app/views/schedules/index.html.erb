@@ -62,15 +62,6 @@
           </button><br>
 
           <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %><br>
-
-          <%= button_to "#{match.client.name}",
-              schedule_path(match),
-              method: :delete,
-              data: { confirm: "削除しますか？" },
-              form: { style: "display:inline;" },
-              style: "background:none; border:none; color:red; text-decoration:underline; cursor:pointer;" %><br>
-
-      <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %>
         </td>
       <% else %>
         <td style="background-color: #f0f0f0;"></td>
