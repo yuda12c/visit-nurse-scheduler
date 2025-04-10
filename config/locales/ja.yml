@@ -9,6 +9,7 @@ ja:
         insurance: 保険の種類
         addition: 加算情報
         memo: メモ
+
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -17,3 +18,9 @@ ja:
       too_short: は%{count}文字以上で入力してください
       too_long: は%{count}文字以下で入力してください
       invalid: が正しくありません
+
+  date:
+    order:
+      - "year"
+      - "month"
+      - "day"

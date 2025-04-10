@@ -35,10 +35,10 @@
       <% end %>
 
       <% match = @schedules.find do |s|
-      s.user_id == user.id &&
-      s.start_time.present? && s.end_time.present? &&
-      s.start_time.strftime("%H:%M") < (Time.parse(time) + 30.minutes).strftime("%H:%M") &&
-      s.end_time.strftime("%H:%M") > time
+        s.user_id == user.id &&
+        s.start_time.present? && s.end_time.present? &&
+        s.start_time.strftime("%H:%M") <= time &&
+        s.end_time.strftime("%H:%M") > time
       end %>
 
       <% if match %>

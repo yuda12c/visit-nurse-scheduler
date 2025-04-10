@@ -3,7 +3,7 @@ class SchedulesController < ApplicationController
     selected_day = params[:weekday] || "月"
     @selected_weekday = selected_day
     @schedules = Schedule.includes(:client, :user).where(weekday: selected_day).order(:timeslot)
-    @users = User.order(:id)
+    @users = User.all
   end
 
   def new
@@ -40,6 +40,17 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.find(params[:id])
     respond_to do |format|
       format.html { render partial: "form", locals: { schedule: @schedule } }
+    end
+  end
+
+  def update
+    @schedule = Schedule.find(params[:id])
+    if @schedule.update(schedule_params)
+      respond_to do |format|
+        format.js   # update.js.erb を返す
+      end
+    else
+      render partial: "form", locals: { schedule: @schedule }
     end
   end
 
