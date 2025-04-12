@@ -39,7 +39,7 @@ class SchedulesController < ApplicationController
   def edit
     @schedule = Schedule.find(params[:id])
     respond_to do |format|
-      format.html { render partial: "form", locals: { schedule: @schedule } }
+      format.html { render partial: "form", locals: { schedule: @schedule }, layout: false }
     end
   end
 

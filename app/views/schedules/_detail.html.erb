@@ -1,35 +1,25 @@
-<div style="position: fixed; top: 20%; left: 30%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 999;">
-  <h3>スケジュール詳細</h3>
+<div id="schedule-detail-modal" style="position: fixed; top: 20%; left: 30%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000; max-height: 80vh; overflow-y: auto; border-radius: 8px; width: 320px;">
   <p><strong>患者:</strong> <%= schedule.client.name %></p>
   <p><strong>担当者:</strong> <%= schedule.user.name %></p>
   <p><strong>住所:</strong> <%= schedule.client.address %></p>
   <p><strong>開始時刻:</strong> <%= schedule.start_time.strftime("%H:%M") %></p>
   <p><strong>終了時刻:</strong> <%= schedule.end_time.strftime("%H:%M") %></p>
+
   <% if schedule.client.addition.present? %>
-  <p><strong>加算情報:</strong> <%= simple_format(schedule.client.addition) %></p>
+    <p><strong>加算情報:</strong><br><%= simple_format(schedule.client.addition) %></p>
   <% end %>
+
   <% if schedule.memo.present? %>
-    <p><strong>メモ:</strong> <%= simple_format(schedule.memo) %></p>
+    <p><strong>メモ:</strong><br><%= simple_format(schedule.memo) %></p>
   <% end %>
-  <!-- 閉じるボタン -->
-  <button onclick="document.getElementById('schedule-detail-modal').style.display='none'">閉じる</button>
 
-  <!-- 編集ボタン（非同期でフォーム取得） -->
-  <button
-    class="edit-schedule-button"
-    data-id="<%= schedule.id %>"
-    style="margin-top: 10px;">
-    編集する
-  </button>
+  <!-- 編集フォームはここにだけ表示されるようにします -->
+  <div id="edit-schedule-modal" hidden></div>
 
-  <!-- 編集フォームモーダルの表示先 -->
-  <div id="edit-schedule-modal" style="display: none;"></div>
-
-  <!-- 削除ボタン -->
-  <button
-  class="delete-schedule-button"
-  data-id="<%= schedule.id %>"
-  data-confirm="削除しますか？"
-  style="color: red; margin-top: 10px;">
-  削除する
-</button>
+  <!-- ボタン群 -->
+  <div class="modal-footer">
+    <button onclick="document.getElementById('schedule-detail-modal').style.display='none'">閉じる</button>
+    <button class="edit-schedule-button" data-id="<%= schedule.id %>">編集する</button>
+    <button class="delete-schedule-button" data-id="<%= schedule.id %>" style="color: red;">削除する</button>
+  </div>
+</div>

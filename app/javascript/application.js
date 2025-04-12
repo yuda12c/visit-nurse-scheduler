@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", function (e) {
     if (e.target && e.target.classList.contains("edit-schedule-button")) {
       const scheduleId = e.target.dataset.id;
-
+  
       fetch(`/schedules/${scheduleId}/edit`, {
         headers: {
           "Accept": "text/html"
@@ -35,12 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
       })
         .then(response => response.text())
         .then(html => {
-          const editModal = document.getElementById("edit-schedule-modal");
-          editModal.innerHTML = html;
-          editModal.style.display = "block";
+          const modal = document.getElementById("edit-schedule-modal");
+          modal.innerHTML = html;
+          modal.style.display = "block";
+          modal.scrollIntoView({ behavior: "smooth" });
         });
     }
   });
+
   document.addEventListener("click", function (e) {
     // 削除ボタンのクリック処理
     if (e.target && e.target.classList.contains("delete-schedule-button")) {

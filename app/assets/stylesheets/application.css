@@ -20,3 +20,9 @@ nav a {
 .alert {
   color: red;
 }
+
+#schedule-detail-modal p {
+  margin: 4px 0;
+  line-height: 1.3;
+  font-size: 14px;
+}
