@@ -1,15 +1,24 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
 /* ヘッダー全体 */
 header {
-  background-color: #27619c;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  color: #805505;
+  background-color: #f5ec85;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
 }
 
 /* ナビゲーションのリンク */
 nav a {
   margin-right: 15px;
   text-decoration: none;
-  color: #f5f5f5;
+  color:#805505 ;
+ 
 }
 
 /* フラッシュメッセージ */

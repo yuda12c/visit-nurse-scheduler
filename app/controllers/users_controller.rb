@@ -18,7 +18,10 @@ class UsersController < ApplicationController
     end
 
     def show
-      @user = User.find(params[:id])
+      @user = User.find_by(id: params[:id])
+      unless @user
+        redirect_to users_path, alert: "ユーザーが見つかりませんでした"
+      end
     end
 
     def edit
@@ -37,6 +40,12 @@ class UsersController < ApplicationController
       else
         render :edit
       end
+    end
+
+    def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      redirect_to root_path, notice: "ユーザーを削除しました"
     end
   
     private
