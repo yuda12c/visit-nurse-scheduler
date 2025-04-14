@@ -6,6 +6,7 @@ Column	           | Type	  | Options
 name	             | string	| null: false
 email	             | string	| null: false, unique: true
 encrypted_password | string	| null: false
+workdays           | string | null: false
 worktime           | string | null: false
 eligibility        | string | null: false
 

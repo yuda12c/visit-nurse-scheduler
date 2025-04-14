@@ -12,6 +12,14 @@
   </div>
 
   <div>
+  <%= form.label :workdays, "勤務曜日" %><br>
+  <% ["月", "火", "水", "木", "金", "土"].each do |day| %>
+    <%= check_box_tag "user[workdays][]", day, @user.workdays&.include?(day) %>
+    <%= label_tag "user_workdays_#{day}", day %><br>
+  <% end %>
+  </div>
+
+  <div>
   <%= form.label :worktime, "勤務時間" %><br>
 
   <span>開始:</span>

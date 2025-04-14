@@ -16,7 +16,7 @@
     <tr>
       <th>時間帯</th>
       <% @users.each do |user| %>
-        <th><%= user.name %></th>
+        <th><%= link_to user.name, user_path(user) %></th>
       <% end %>
     </tr>
   </thead>
@@ -30,7 +30,6 @@
     <% @users.each do |user| %>
       <% key = "#{user.id}-#{time}" %>
       <% if rendered_cells[key] %>
-        <%# すでに表示したセルならスキップ %>
         <% next %>
       <% end %>
 
