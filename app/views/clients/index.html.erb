@@ -2,6 +2,8 @@
 
 <h1>患者情報一覧</h1>
 
+<%= link_to "患者新規登録", new_client_path %>
+
 <div id="clients">
   <% @clients.each do |client| %>
     <%= render client %>
@@ -11,4 +13,4 @@
   <% end %>
 </div>
 
-<%= link_to "患者新規登録", new_client_path %>
+

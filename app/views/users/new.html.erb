@@ -1,0 +1,39 @@
+<h1>ユーザー新規登録</h1>
+
+<%= form_with(model: @user, local: true) do |form| %>
+  <div>
+    <%= form.label :name, "名前" %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :email, "メールアドレス" %><br>
+    <%= form.email_field :email %>
+  </div>
+
+  <div>
+  <%= form.label :worktime, "勤務時間" %><br>
+
+  <span>開始:</span>
+  <%= select_tag "start_hour", options_for_select((8..17).map { |h| [sprintf("%02d", h), h] }), prompt: "時" %> :
+  <%= select_tag "start_minute", options_for_select([0,15,30,45].map { |m| [sprintf("%02d", m), m] }), prompt: "分" %>
+
+  <span style="margin-left: 10px;">終了:</span>
+  <%= select_tag "end_hour", options_for_select((8..17).map { |h| [sprintf("%02d", h), h] }), prompt: "時" %> :
+  <%= select_tag "end_minute", options_for_select([0,15,30,45].map { |m| [sprintf("%02d", m), m] }), prompt: "分" %>
+</div>
+
+  <div>
+  <%= form.label :eligibility, "資格" %><br>
+  <%= form.select :eligibility, ["看護師", "准看護師", "理学療法士", "作業療法士", "言語聴覚士"], { prompt: "選択してください" } %>
+  </div>
+
+  <div>
+    <%= form.label :password, "パスワード" %><br>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.submit "登録する" %>
+  </div>
+<% end %>
