@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   resources :schedules
   resources :clients
   resources :users
-  devise_for :users
+  devise_for :accounts
 end
