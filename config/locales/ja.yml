@@ -9,6 +9,11 @@ ja:
         insurance: 保険の種類
         addition: 加算情報
         memo: メモ
+      user:
+        name: 名前
+        workdays: 勤務曜日
+        worktime: 勤務時間
+        eligibility: 資格
 
   errors:
     format: "%{attribute} %{message}"

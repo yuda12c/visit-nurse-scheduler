@@ -1,27 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= csrf_meta_tags %>
-  <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= csrf_meta_tags %>
+    <%= javascript_importmap_tags %>
+    <style>
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .logout-link {
+        margin-left: auto;
+      }
+    </style>
   </head>
-  <header>
-  <nav>
-    <%= link_to "ホーム", root_path %>
-    <%= link_to "患者一覧", clients_path %>
-    <%= link_to "ユーザー新規登録", new_user_path %>
-    
-  </nav>
-</header>
 
-<div class="container">
-  <% if notice %>
-    <p class="notice"><%= notice %></p>
-  <% end %>
+  <body>
+    <header>
+      <nav>
+        <%= link_to "ホーム", root_path %>
+        <%= link_to "患者一覧", clients_path %>
+        <%= link_to "スタッフ新規登録", new_user_path %>
 
-  <% if alert %>
-    <p class="alert"><%= alert %></p>
-  <% end %>
+        <%# if account_signed_in? %>
+          <%# <%= link_to "ログアウト", destroy_account_session_path, method: :delete, data: { confirm: "ログアウトしますか？" }, class: "logout-link" %>
+        <%# else %> 
+          <%#= link_to "ログイン", new_account_session_path, class: "logout-button" %>
+        <%# end %> 
+      </nav>
+    </header>
 
-  <%= yield %>
-</div>
+    <div class="container">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+
+      <% if alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

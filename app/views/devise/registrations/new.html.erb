@@ -1,43 +1,23 @@
-<h2>ユーザー登録</h2>
+<h2>アカウント新規登録</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <% if resource.errors.any? %>
-    <div style="color: red;">
-      <ul>
-        <% resource.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div>
-    <%= f.label :name, "氏名" %><br />
-    <%= f.text_field :name %>
+    <%= f.label :name, "お名前" %><br />
+    <%= f.text_field :name, autofocus: true %>
   </div>
 
   <div>
-    <%= f.label :worktime, "勤務時間" %><br />
-    <%= f.text_field :worktime %>
-  </div>
-
-  <div>
-<%= f.label :eligibility, "資格" %><br />
-<%= f.select :eligibility, ["看護師", "准看護師", "理学療法士", "作業療法士", "言語聴覚士"], prompt: "資格を選択してください" %>
-  </div>
-
-  <div>
-    <%= f.label :email,"メールアドレス" %><br />
+    <%= f.label :email, "メールアドレス" %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
 
   <div>
-    <%= f.label :password, "パスワード" %><br />
+    <%= f.label :password, "パスワード（6文字以上）" %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
   <div>
-    <%= f.label :password_confirmation, "再度パスワード入力" %><br />
+    <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 

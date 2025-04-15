@@ -7,7 +7,9 @@ class UsersController < ApplicationController
       start_time = "#{params[:start_hour]}:#{params[:start_minute]}"
       end_time = "#{params[:end_hour]}:#{params[:end_minute]}"
       worktime_str = "#{start_time}-#{end_time}"
-      workdays_str = params[:user][:workdays].join(",")
+      workdays_array = params[:user][:workdays] || []
+      workdays_str = workdays_array.join(",")
+      
       @user = User.new(user_params.merge(worktime: worktime_str))
     
       if @user.save
@@ -32,7 +34,8 @@ class UsersController < ApplicationController
       start_time = "#{params[:start_hour]}:#{params[:start_minute]}"
       end_time = "#{params[:end_hour]}:#{params[:end_minute]}"
       worktime_str = "#{start_time}-#{end_time}"
-      workdays_str = params[:user][:workdays]&.join(",")
+      workdays_array = params[:user][:workdays] || []
+      workdays_str = workdays_array.join(",")
     
       @user = User.find(params[:id])
       if @user.update(user_params.merge(worktime: worktime_str, workdays: workdays_str))
@@ -51,7 +54,7 @@ class UsersController < ApplicationController
     private
   
     def user_params
-      params.require(:user).permit(:name, :email, :password, :worktime, :eligibility, workdays: [])
+      params.require(:user).permit(:name, :worktime, :eligibility, workdays: [])
     end
   end
 

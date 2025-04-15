@@ -1,0 +1,24 @@
+ja:
+  devise:
+    sessions:
+      signed_in: 'ログインしました。'
+      signed_out: 'ログアウトしました。'
+    failure:
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+      timeout: "セッションがタイムアウトしました。もう一度ログインしてください。"
+      unauthenticated: "ログインまたはアカウント登録してください。"
+    registrations:
+      signed_up: 'アカウント登録が完了しました。'
+      updated: 'アカウント情報を変更しました。'
+      destroyed: 'アカウントを削除しました。'
+    passwords:
+      send_instructions: "パスワードの再設定について数分以内にメールでご連絡いたします。"
+      updated: "パスワードを変更しました。"
+    mailer:
+      confirmation_instructions:
+        subject: "アカウント確認メール"
+      reset_password_instructions:
+        subject: "パスワード再設定"
+      unlock_instructions:
+        subject: "アカウントのロック解除"
