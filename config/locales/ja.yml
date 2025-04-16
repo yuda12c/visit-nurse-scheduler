@@ -14,18 +14,37 @@ ja:
         workdays: 勤務曜日
         worktime: 勤務時間
         eligibility: 資格
+      schedule:
+        user_id: 担当スタッフ
+        user: 担当スタッフ
+        client_id: 利用者
+        client: 利用者
+        weekday: 曜日
+        start_time: 開始時刻
+        end_time: 終了時刻
 
   errors:
     format: "%{attribute} %{message}"
     messages:
       blank: を入力してください
+      required: を入力してください
       taken: はすでに存在します
       too_short: は%{count}文字以上で入力してください
       too_long: は%{count}文字以下で入力してください
       invalid: が正しくありません
-
-  date:
-    order:
-      - "year"
-      - "month"
-      - "day"
+    models:
+      schedule:
+        attributes:
+          user:
+            required: "を入力してください"
+          user_id:
+            required: "を入力してください"
+          client:
+            required: "を入力してください"
+          client_id:
+            required: "を入力してください"
+    date:
+      order:
+        - "year"
+        - "month"
+        - "day"

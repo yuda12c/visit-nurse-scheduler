@@ -3,7 +3,7 @@
 <%= form_with(model: @schedule) do |form| %>
   <% if @schedule.errors.any? %>
     <div style="color: red;">
-      <h2><%= pluralize(@schedule.errors.count, "件のエラー") %>があります：</h2>
+      <h2>以下の入力に誤りがあります：</h2>
       <ul>
         <% @schedule.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>

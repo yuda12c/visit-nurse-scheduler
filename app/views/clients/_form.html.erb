@@ -1,15 +1,16 @@
 <%= form_with(model: client) do |form| %>
-  <% if client.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
-
+  <% if @client.errors.any? %>
+  <div class="error-messages">
+    <div style="color: red;">
+      <h2>以下の入力に誤りがあります：</h2>
       <ul>
-        <% client.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @client.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
  <div>
     <%= form.label :name do %>

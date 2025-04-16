@@ -2,12 +2,14 @@
 
 <% if @user.errors.any? %>
   <div class="error-messages">
+    <div style="color: red;">
     <h2>以下の入力に誤りがあります：</h2>
     <ul>
       <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
+    </div>
   </div>
 <% end %>
 
@@ -35,6 +37,12 @@
   <span style="margin-left: 10px;">終了:</span>
   <%= select_tag "end_hour", options_for_select((8..17).map { |h| [sprintf("%02d", h), h] }), prompt: "時" %> :
   <%= select_tag "end_minute", options_for_select([0,15,30,45].map { |m| [sprintf("%02d", m), m] }), prompt: "分" %>
+
+  <% if @user.errors[:worktime].any? %>
+    <div style="color: red;">
+      <%= @user.errors[:worktime].first %>
+    </div>
+  <% end %>
 </div>
 
   <div>
