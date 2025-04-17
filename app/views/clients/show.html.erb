@@ -1,8 +1,14 @@
-<%= render @client %>
+<h1>患者詳細</h1>
 
-<div>
-  <%= link_to "患者情報を編集する", edit_client_path(@client) %> |
-  <%= link_to "患者情報一覧", clients_path %>
+<div class="client-detail-card">
+  <p><strong>名前:</strong> <%= @client.name %></p>
+  <p><strong>住所:</strong> <%= @client.address %></p>
+  <p><strong>保険の種類:</strong> <%= @client.insurance.join(" / ") %></p>
+  <p><strong>加算情報:</strong> <%= @client.addition %></p>
+  <p><strong>メモ:</strong> <%= @client.memo %></p>
 
-  <%= button_to "情報を削除する", @client, method: :delete %>
+  <div class="client-detail-actions">
+    <%= link_to "患者情報を編集する", edit_client_path(@client), class: "client-edit-link" %><br>
+    <%= link_to "患者情報一覧へ戻る", clients_path, class: "client-back-link" %>
+  </div>
 </div>

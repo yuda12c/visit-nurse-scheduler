@@ -1,0 +1,22 @@
+<h1 class="staff-title">スタッフ一覧</h1>
+
+<table class="staff-table">
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>勤務曜日</th>
+      <th>勤務時間</th>
+      <th>資格</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user_path(user), class: "staff-name-link" %></td>
+        <td><%= user.workdays %></td>
+        <td><%= user.worktime %></td>
+        <td><%= user.eligibility %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,8 +1,8 @@
-<h1>スケジュール登録</h1>
+<h1 class="schedule-form-title">スケジュール登録</h1>
 
-<%= form_with(model: @schedule) do |form| %>
+<%= form_with(model: @schedule, html: { class: "schedule-form" }) do |form| %>
   <% if @schedule.errors.any? %>
-    <div style="color: red;">
+    <div class="error-messages">
       <h2>以下の入力に誤りがあります：</h2>
       <ul>
         <% @schedule.errors.full_messages.each do |msg| %>
@@ -12,44 +12,54 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :user_id, "担当スタッフ" %><br>
-    <%= form.collection_select :user_id, User.all, :id, :name, prompt: "担当スタッフを選択" %>
-  </div>
-
-  <div>
-    <%= form.label :client_id, "利用者" %><br>
-    <%= form.collection_select :client_id, Client.all, :id, :name, prompt: "利用者を選択" %>
-  </div>
-
-  <div>
-    <%= form.label :weekday, "曜日" %><br>
-    <%= form.select :weekday, %w(月 火 水 木 金 土), prompt: "曜日を選択" %>
-  </div>
-
-  <div>
-    <%= form.label :timeslot, "希望時間帯" %><br>
-    <%= form.select :timeslot, %w(午前 午後 夕方), prompt: "時間帯を選択" %>
-  </div>
-
 <div>
-  <%= form.label :start_time, "開始時刻" %><br>
-  <%= form.time_select :start_time, minute_step: 5 %>
-</div>
-
-<div>
-  <%= form.label :end_time, "終了時刻" %><br>
-  <%= form.time_select :end_time, minute_step: 5 %>
+  <%= form.label :user_id do %>
+    担当スタッフ <span style="color: red;">*</span>
+  <% end %>
+  <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "担当スタッフを選択" }, class: "input-select" %>
 </div>
 
   <div>
-    <%= form.label :memo, "メモ" %><br>
-    <%= form.text_field :memo %>
+    <%= form.label :client_id do %>
+      利用者 <span style="color: red;">*</span>
+    <% end %>
+    <%= form.collection_select :client_id, Client.all, :id, :name, { prompt: "利用者を選択" }, class: "input-select" %>
   </div>
 
   <div>
-    <%= form.submit "登録する" %>
+    <%= form.label :weekday do %>
+      曜日 <span style="color: red;">*</span>
+    <% end %>
+    <%= form.select :weekday, %w(月 火 水 木 金 土), { prompt: "曜日を選択" }, class: "input-select" %>
+  </div>
+
+  <div class="time-select">
+    <%= form.label :start_time do %>
+      開始時刻 <span style="color: red;">*</span>
+    <% end %>
+    <%= form.time_select :start_time, { minute_step: 5, default: nil }, class: "time-dropdown" %>
+
+    <%= form.label :end_time, nil, style: "margin-left: 20px;" do %>
+      終了時刻 <span style="color: red;">*</span>
+    <% end %>
+    <%= form.time_select :end_time, { minute_step: 5, default: nil }, class: "time-dropdown" %>
+  </div>
+
+  <div>
+    <%= form.label :timeslot, "希望時間帯" %>
+    <%= form.select :timeslot, %w(午前 午後 夕方), { prompt: "時間帯を選択" }, class: "input-select" %>
+  </div>
+
+  <div>
+    <%= form.label :memo, "メモ" %>
+    <%= form.text_field :memo, class: "input-text" %>
+  </div>
+
+  <div>
+    <%= form.submit "登録する", class: "form-submit-btn" %>
   </div>
 <% end %>
 
-<%= link_to "スケジュール一覧に戻る", root_path %>
+<div>
+  <%= link_to "スケジュール一覧に戻る", root_path, class: "form-submit-btn" %>
+</div>

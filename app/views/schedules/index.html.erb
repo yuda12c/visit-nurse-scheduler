@@ -3,15 +3,20 @@
 <% time_slots = ["08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00",
                  "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"] %>
 
-<div style="margin-bottom: 20px;">
+<div class = "weekday_index">
   <% %w(月 火 水 木 金 土 ).each do |day| %>
     <%= link_to "#{day}曜日", schedules_path(weekday: day), style: "margin-right: 10px;" %>
   <% end %>
 </div>
 
-<%= link_to "新規スケジュールを登録", new_schedule_path, class: "button" %>
+<div class="action-buttons">
+<div class="schedule-new">
+<%= link_to "スケジュール新規登録", new_schedule_path, class: "button" %><br></div>
+<div class ="user-new">
+<%= link_to "スタッフ新規登録", new_user_path, class: "button" %><br></div>
+</div>
 
-<table border="1" cellpadding="8" cellspacing="0">
+<table class="schedule-table" border="1" cellpadding="8" cellspacing="0">
   <thead>
     <tr>
       <th>時間帯</th>
@@ -72,7 +77,7 @@ end %>
     <% rendered_cells["#{user.id}-#{time_slots[i]}"] = true %>
   <% end %>
 
-  <td rowspan="<%= rowspan %>" style="background-color: #f5ec85;">
+  <td rowspan="<%= rowspan %>", class="schedule-cell">
     <button
       class="show-detail-button"
       data-id="<%= match.id %>"
@@ -82,7 +87,7 @@ end %>
     <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %><br>
   </td>
 <% else %>
-  <td style="background-color: #f0f0f0;"></td>
+  <td class="empty-cell"></td>
 <% end %>
 
 <% end %>

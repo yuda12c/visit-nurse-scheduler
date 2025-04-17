@@ -1,13 +1,19 @@
-<h1>患者情報一覧</h1>
+<h1 class="client-title">患者情報一覧</h1>
 
-<%= link_to "患者新規登録", new_client_path %>
+<div class="client-actions">
+  <%= link_to "患者新規登録", new_client_path, class: "client-new-btn" %>
+</div>
 
-<div id="clients">
+<div class="client-list">
   <% @clients.each do |client| %>
-    <%= render client %>
-    <p>
-      <%= link_to "患者詳細", client %>
-    </p>
+    <div class="client-card">
+      <p><strong>名前:</strong> <%= client.name %></p>
+      <p><strong>住所:</strong> <%= client.address %></p>
+      <p><strong>保険の種類:</strong> <%= client.insurance.join(" / ") %></p>
+      <p><strong>加算情報:</strong> <%= client.addition %></p>
+      <p><strong>メモ:</strong> <%= client.memo %></p>
+      <%= link_to "患者詳細", client_path(client), class: "client-detail-link" %>
+    </div>
   <% end %>
 </div>
 
