@@ -1,9 +1,10 @@
 class SchedulesController < ApplicationController
   def index
-    selected_day = params[:weekday] || "月"
-    @selected_weekday = selected_day
-    @schedules = Schedule.includes(:client, :user).where(weekday: selected_day).order(:timeslot)
-    @users = User.all
+    @selected_weekday = params[:weekday] || "月"
+    @users = User.all.select do |user|
+      user.workdays.present? && user.workdays.split(",").include?(@selected_weekday)
+    end
+    @schedules = Schedule.includes(:client).where(weekday: @selected_weekday)
   end
 
   def new
