@@ -37,59 +37,30 @@
       <% if rendered_cells[key] %>
         <% next %>
       <% end %>
-
-<% match = @schedules.find do |s| 
-  next if s.start_time.nil? || s.end_time.nil?
+<% cell_schedules = @schedules.select do |s| 
+  next if s.start_time.nil?
 
   rounded_start = s.start_time.change(min: s.start_time.min < 30 ? 0 : 30)
-  rounded_end = if s.end_time.min <= 15
-                   s.end_time.change(min: 0)
-                 elsif s.end_time.min <= 45
-                   s.end_time.change(min: 30)
-                 else
-                   s.end_time.change(min: 0, hour: s.end_time.hour + 1)
-                 end
-
-  start_str = rounded_start.strftime("%H:%M")
-  s.user_id == user.id && time == start_str
+  s.user_id == user.id && rounded_start.strftime("%H:%M") == time
 end %>
 
-<% if match %>
-  <% rounded_start = match.start_time.change(min: match.start_time.min < 30 ? 0 : 30) %>
-  <% rounded_end = if match.end_time.min <= 15
-                     match.end_time.change(min: 0)
-                   elsif match.end_time.min <= 45
-                     match.end_time.change(min: 30)
-                   else
-                     match.end_time.change(min: 0, hour: match.end_time.hour + 1)
-                   end %>
-
-  <% start_index = time_slots.index(rounded_start.strftime("%H:%M")) %>
-  <% end_index = time_slots.index(rounded_end.strftime("%H:%M")) || time_slots.length %>
-
-  <% if start_index.nil? || end_index.nil? %>
-    <% next %>
+<td class="schedule-cell">
+  <% if cell_schedules.any? %>
+    <div class="multi-schedule-wrapper">
+      <% cell_schedules.each do |schedule| %>
+        <div class="multi-schedule-item">
+          <button
+            class="show-detail-button"
+            data-id="<%= schedule.id %>"
+            style="background:none; border:none; color:blue; text-decoration:underline; cursor:pointer;">
+            <%= schedule.client.name %>
+          </button><br>
+          <%= schedule.start_time.strftime("%H:%M") %>〜<%= schedule.end_time.strftime("%H:%M") %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-
-  <% rowspan = end_index - start_index %>
-
-  <% (start_index...end_index).each do |i| %>
-    <% rendered_cells["#{user.id}-#{time_slots[i]}"] = true %>
-  <% end %>
-
-  <td rowspan="<%= rowspan %>", class="schedule-cell">
-    <button
-      class="show-detail-button"
-      data-id="<%= match.id %>"
-      style="background:none; border:none; color:blue; text-decoration:underline; cursor:pointer;">
-      <%= match.client.name %>
-    </button><br>
-    <%= match.start_time.strftime("%H:%M") %>〜<%= match.end_time.strftime("%H:%M") %><br>
-  </td>
-<% else %>
-  <td class="empty-cell"></td>
-<% end %>
-
+</td>
 <% end %>
   </tr>
 <% end %>
