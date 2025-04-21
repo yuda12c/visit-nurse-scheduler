@@ -72,3 +72,4 @@ group :production do
 end
 
 gem 'devise'
+gem 'dotenv-rails', groups: [:development, :test]
