@@ -1,10 +1,41 @@
-<h1>Editing client</h1>
+<div class="client-form-box">
+  <h1>患者情報の登録</h1>
 
-<%= render "form", client: @client %>
+  <%= form_with(model: @client, local: true) do |form| %>
+    <div>
+      <%= form.label :name, "名前", class: "required" %>
+      <%= form.text_field :name %>
+    </div>
 
-<br>
+    <div>
+      <%= form.label :address, "住所", class: "required" %>
+      <%= form.text_field :address %>
+    </div>
 
-<div>
-  <%= link_to "Show this client", @client %> |
-  <%= link_to "Back to clients", clients_path %>
+    <div class="checkbox-group">
+      <%= form.label :insurance, "保険の種類", class: "required" %><br>
+
+      <%= check_box_tag 'client[insurance][]', '介護', @client.insurance.include?('介護') %>
+      <%= label_tag 'client_insurance_care', '介護' %>
+
+      <%= check_box_tag 'client[insurance][]', '医療', @client.insurance.include?('医療') %>
+      <%= label_tag 'client_insurance_medical', '医療' %>
+    </div>
+
+    <div>
+      <%= form.label :addition, "加算情報" %>
+      <%= form.text_field :addition %>
+    </div>
+
+    <div>
+      <%= form.label :memo, "メモ" %>
+      <%= form.text_area :memo %>
+    </div>
+
+    <div>
+      <%= form.submit "登録する", class: "btn-yellow" %>
+    </div>
+  <% end %>
+
+  <%= link_to "患者一覧に戻る", clients_path, class: "back-button" %>
 </div>

@@ -1,41 +1,63 @@
-<h1>ユーザー編集</h1>
+<div class="user-form">
+  <h1 class="user-form-title">スタッフ編集</h1>
 
-<%= form_with(model: @user, local: true) do |form| %>
-  <div>
-    <%= form.label :name, "名前" %><br>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :email, "メールアドレス" %><br>
-    <%= form.email_field :email %>
-  </div>
-
-  <div>
-    <%= form.label :eligibility, "資格" %><br>
-    <%= form.text_field :eligibility %>
-  </div>
-
-  <div>
-    <%= form.label :workdays, "勤務曜日" %><br>
-    <% ["月", "火", "水", "木", "金", "土", "日"].each do |day| %>
-      <%= check_box_tag "user[workdays][]", day, @user.workdays&.include?(day) %>
-      <%= label_tag "user_workdays_#{day}", day %><br>
+  <%= form_with(model: @user, local: true) do |form| %>
+    <% if @user.errors.any? %>
+      <div class="error-messages">
+        <h2>以下の入力に誤りがあります：</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
+
+    <div>
+      <%= form.label :name, "名前" %><br>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label :email, "メールアドレス" %><br>
+      <%= form.email_field :email %>
+    </div>
+
+    <div>
+      <%= form.label :workdays, "勤務曜日" %><br>
+      <div class="checkbox-group">
+        <% ["月", "火", "水", "木", "金", "土", "日"].each do |day| %>
+          <label>
+            <%= check_box_tag "user[workdays][]", day, @user.workdays&.include?(day) %>
+            <%= day %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <%= form.label :worktime, "勤務時間" %><br>
+      <div class="time-select">
+        <% start_hour, start_minute = @user.worktime&.split("-")&.first&.split(":") || ["8", "30"] %>
+        <% end_hour, end_minute = @user.worktime&.split("-")&.last&.split(":") || ["17", "30"] %>
+
+        <span>開始:</span>
+        <%= select_tag :start_hour, options_for_select((8..17).map(&:to_s), start_hour), class: "time-dropdown" %> 時
+        <%= select_tag :start_minute, options_for_select(["00", "15", "30", "45"], start_minute), class: "time-dropdown" %> 分
+
+        <span>終了:</span>
+        <%= select_tag :end_hour, options_for_select((8..19).map(&:to_s), end_hour), class: "time-dropdown" %> 時
+        <%= select_tag :end_minute, options_for_select(["00", "15", "30", "45"], end_minute), class: "time-dropdown" %> 分
+      </div>
+    </div>
+
+     <div>
+    <%= form.label :eligibility, "資格" %><span style="color: red;">*</span><br>
+    <%= form.select :eligibility, ["看護師", "准看護師", "理学療法士", "作業療法士", "言語聴覚士"], { prompt: "選択してください" } %>
   </div>
 
-  <div>
-    <%= form.label :worktime, "勤務時間" %><br>
-    <% start_hour, start_minute = @user.worktime&.split("-")&.first&.split(":") || ["8", "30"] %>
-    <% end_hour, end_minute = @user.worktime&.split("-")&.last&.split(":") || ["17", "30"] %>
-
-    <%= select_tag :start_hour, options_for_select((8..17).map(&:to_s), start_hour) %> 時
-    <%= select_tag :start_minute, options_for_select(["00", "15", "30", "45"], start_minute) %> 分 〜
-    <%= select_tag :end_hour, options_for_select((8..19).map(&:to_s), end_hour) %> 時
-    <%= select_tag :end_minute, options_for_select(["00", "15", "30", "45"], end_minute) %> 分
-  </div>
-
-  <div>
-    <%= form.submit "更新する" %>
-  </div>
-<% end %>
+    <div>
+      <%= form.submit "更新する", class: "form-submit-btn" %>
+    </div>
+  <% end %>
+</div>

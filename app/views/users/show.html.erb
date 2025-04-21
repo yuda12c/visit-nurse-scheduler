@@ -1,8 +1,14 @@
-<h1><%= @user.name %>さんの詳細</h1>
+<div class="staff-detail-container">
+  <h2 class="staff-name"><%= @user.name %>さんの詳細</h2>
 
-<p><strong>資格:</strong> <%= @user.eligibility %></p>
-<p><strong>勤務曜日:</strong> <%= @user.workdays %></p>
-<p><strong>勤務時間:</strong> <%= @user.worktime %></p>
+  <div class="staff-info">
+    <p><strong>資格:</strong> <%= @user.eligibility %></p>
+    <p><strong>勤務曜日:</strong> <%= @user.workdays %></p>
+    <p><strong>勤務時間:</strong> <%= @user.worktime %></p>
+  </div>
 
-<%= link_to '編集', edit_user_path(@user), class: "btn btn-primary" %> |
-<%= link_to '削除', user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+  <div class="staff-actions">
+    <%= link_to '編集', edit_user_path(@user), class: 'edit-link' %> |
+    <%= link_to '削除', @user, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'delete-link' %>
+  </div>
+</div>
