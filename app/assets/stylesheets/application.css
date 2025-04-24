@@ -248,10 +248,6 @@ nav a {
   margin-bottom: 16px;
 }
 
-.client-form div {
-  margin-bottom: 18px;
-}
-
 .client-form label {
   font-weight: bold;
   color: #333;
@@ -270,17 +266,6 @@ nav a {
   margin-right: 4px;
 }
 
-.client-form input[type="submit"] {
-  background-color: #ffeb3b;
-  color: #4e342e;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
 .client-form input[type="submit"]:hover {
   background-color: #fff176;
 }
@@ -291,26 +276,6 @@ nav a {
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 16px;
-}
-
-.form-submit-btn {
-  display: inline-block;
-  padding: 10px 16px;
-  margin-top: 12px;
-  background-color: #ffeb3b; 
-  color: #4e342e;
-  border: 2px solid #fbc02d;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.form-submit-btn:hover {
-  background-color: #fff176;
-  transform: scale(1.03);
-  cursor: pointer;
 }
 
 .checkbox-group {
@@ -338,6 +303,10 @@ nav a {
   box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
   max-width: 600px;
 }
+.required-mark {
+  color: red;
+  margin-left: 4px;
+}
 
 .user-form-title {
   margin-top: 20px;
@@ -349,7 +318,7 @@ nav a {
 }
 
 .user-form div {
-  margin-bottom: 18px;
+  margin-bottom: 5px;
 }
 
 .user-form input[type="text"],
@@ -805,4 +774,10 @@ textarea {
 
 .user-edit-container input[type="submit"]:hover {
   background-color: #f9e68d;
+}
+
+/*スケジュール詳細　JavaScript*/
+.time-select-row {
+  display: flex;
+  align-items: center;
 }

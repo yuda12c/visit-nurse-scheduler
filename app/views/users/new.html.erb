@@ -13,17 +13,17 @@
 
 <%= form_with(model: @user, local: true, html: { class: "user-form" }) do |form| %>
   <div>
-    <%= form.label :name, "名前" %><span style="color: red;">*</span><br>
-    <%= form.text_field :name %>
+   <%= form.label :name, raw("名前<span class='required-mark'>*</span>") %>
+    <%= form.text_field :name %><br>
   </div>
 
   <div>
-  <%= form.label :email, "メールアドレス" %><span style="color: red;">*</span><br>
+  <%= form.label :email, raw("メールアドレス<span class='required-mark'>*</span>") %>
   <%= form.email_field :email %>
   </div>
 
   <div>
-    <%= form.label :workdays, "勤務曜日" %><span style="color: red;">*</span><br>
+    <%= form.label :workdays, raw("勤務曜日<span class='required-mark'>*</span>") %>
     <div class="checkbox-group">
       <% ["月", "火", "水", "木", "金", "土"].each do |day| %>
         <label>
@@ -34,7 +34,7 @@
   </div>
 
 <div>
-  <%= form.label :worktime, "勤務時間" %><span style="color: red;">*</span><br>
+  <%= form.label :worktime, raw("勤務時間<span class='required-mark'>*</span>") %>
 <div class="time-select">
   <span>開始:</span>
   <%= select_tag "start_hour", options_for_select((8..17).map { |h| [sprintf("%02d", h), h] }), prompt: "時", class: "time-dropdown" %>
@@ -49,8 +49,8 @@
 </div>
 
   <div>
-    <%= form.label :eligibility, "資格" %><span style="color: red;">*</span><br>
-    <%= form.select :eligibility, ["看護師", "准看護師", "理学療法士", "作業療法士", "言語聴覚士"], { prompt: "選択してください" } %>
+   <%= form.label :eligibility, raw("資格<span class='required-mark'>*</span>") %>
+   <%= form.select :eligibility, ["看護師", "准看護師", "理学療法士", "作業療法士", "言語聴覚士"], { prompt: "選択してください" } %>
   </div>
 
   <div>

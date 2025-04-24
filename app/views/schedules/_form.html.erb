@@ -11,15 +11,17 @@
       <%= form.select :weekday, %w(月 火 水 木 金 土), {}, { class: "form-control" } %>
    </div>
 
-    <div>
-      <%= form.label :start_time, "開始時刻" %>
-      <%= form.time_select :start_time, { minute_step: 5 }, { class: "form-control" } %>
-    </div>
+  <div class="time-select-row">
+   <div>
+    <%= form.label :start_time, "開始時刻" %><br>
+    <%= form.time_select :start_time, { minute_step: 5 }, { class: "form-control" } %>
+   </div>
 
-    <div>
-      <%= form.label :end_time, "終了時刻" %>
-      <%= form.time_select :end_time, { minute_step: 5 }, { class: "form-control" } %>
-    </div>
+  <div style="margin-left: 20px;">
+    <%= form.label :end_time, "終了時刻" %><br>
+    <%= form.time_select :end_time, { minute_step: 5 }, { class: "form-control" } %>
+  </div>
+  </div>
 
     <div>
      <%= form.label :memo, "メモ" %>
