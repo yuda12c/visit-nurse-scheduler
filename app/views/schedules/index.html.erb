@@ -29,7 +29,7 @@
 <tbody>
 <% rendered_cells = {} %>
 
-<% time_slots.each do |time| %>
+<% time_slots.each_with_index do |time, index| %>
   <tr>
     <td><%= time %></td>
     <% @users.each do |user| %>
@@ -37,18 +37,24 @@
       <% if rendered_cells[key] %>
         <% next %>
       <% end %>
-<% cell_schedules = @schedules.select do |s| 
-  next if s.start_time.nil?
 
-  rounded_start = s.start_time.change(min: s.start_time.min < 30 ? 0 : 30)
-  (s.user_id == user.id || s.sub_user_id == user.id) && rounded_start.strftime("%H:%M") == time
-end %>
+      <% schedule = @schedules.find do |s|
+        s.start_time &&
+        (s.user_id == user.id || s.sub_user_id == user.id) &&
+        s.start_time.strftime("%H:%M") == time
+      end %>
 
-<td class="schedule-cell">
-  <% if cell_schedules.any? %>
-    <div class="multi-schedule-wrapper">
-      <% cell_schedules.each do |schedule| %>
-        <div class="multi-schedule-item">
+      <% if schedule %>
+        <% start_index = time_slots.index(schedule.start_time.strftime("%H:%M")) %>
+        <% end_index = time_slots.index(schedule.end_time.strftime("%H:%M")) || start_index + 1 %>
+        <% span = end_index - start_index %>
+
+        <% # 同じ時間帯に他の担当者にも表示しないよう記録 %>
+        <% (start_index...end_index).each do |i| %>
+          <% rendered_cells["#{user.id}-#{time_slots[i]}"] = true %>
+        <% end %>
+
+        <td class="schedule-cell" rowspan="<%= span %>">
           <button
             class="show-detail-button"
             data-id="<%= schedule.id %>"
@@ -56,12 +62,11 @@ end %>
             <%= schedule.client.name %>
           </button><br>
           <%= schedule.start_time.strftime("%H:%M") %>〜<%= schedule.end_time.strftime("%H:%M") %>
-        </div>
+        </td>
+      <% else %>
+        <td></td>
       <% end %>
-    </div>
-  <% end %>
-</td>
-<% end %>
+    <% end %>
   </tr>
 <% end %>
   </tbody>

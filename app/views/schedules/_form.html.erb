@@ -9,7 +9,7 @@
 
     <div>
     <%= form.label :sub_user_id, "サブ担当" %>
-    <%= form.collection_select :sub_user_id, User.all, :id, :name, {}, { class: "input-select" } %>
+    <%= form.collection_select :sub_user_id, User.all, :id, :name, { include_blank: "----" }, { class: "input-select" } %>
     </div>
     </div>
 

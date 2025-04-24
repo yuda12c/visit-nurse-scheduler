@@ -9,6 +9,7 @@ class SchedulesController < ApplicationController
 
   def new
     @schedule = Schedule.new
+    @schedule.sub_user_id = nil
   end
 
   def create
