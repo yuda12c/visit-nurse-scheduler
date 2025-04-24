@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
     validates :name, presence: true       
-    validates :email, uniqueness: true, allow_blank: true
+    validates :email, presence: true, uniqueness: true
     validates :workdays, presence: true
     validates :worktime, presence: true
     validates :eligibility, presence: true

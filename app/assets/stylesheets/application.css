@@ -140,14 +140,15 @@ nav a {
 
 .client-new-btn {
   display: inline-block;
-  padding: 8px 16px;
-  background-color: #fff176;
-  color: #5b3900;
-  border: 1px solid #fdd835;
-  border-radius: 6px;
-  text-decoration: none;
+  padding: 10px 16px;
+  background-color: #ffeb3b;        
+  color: #4e342e;                     
+  border: 2px solid #fbc02d;          
+  border-radius: 8px;
   font-weight: bold;
-  transition: background-color 0.2s;
+  text-decoration: none;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 .client-new-btn:hover {
@@ -197,24 +198,38 @@ nav a {
   margin-top: 16px;
 }
 
-.client-edit-link,
-.client-back-link {
-  display: inline-block;
-  padding: 8px 12px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  background-color: #ffecb3;
-  border: 1px solid #fbc02d;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #4e342e;
-}
-
 .client-edit-link:hover,
 .client-back-link:hover {
   background-color: #fff176;
 }
+
+.client-detail-container {
+  background-color: #fffef5;
+  padding: 32px;
+  margin: 24px;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.client-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.client-info p {
+  font-size: 1rem;
+  margin: 8px 0;
+  color: #444;
+}
+
+.staff-actions {
+  margin-top: 20px;
+}
+
 
 /*患者新規登録*/
 
@@ -338,6 +353,16 @@ nav a {
 }
 
 .user-form input[type="text"],
+.user-form select {
+  padding: 6px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+
+
+.user-form input[type="email"],
 .user-form select {
   padding: 6px;
   width: 100%;
