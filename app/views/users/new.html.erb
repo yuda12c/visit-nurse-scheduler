@@ -18,6 +18,11 @@
   </div>
 
   <div>
+  <%= form.label :email, "メールアドレス（任意）" %><br>
+  <%= form.email_field :email %>
+  </div>
+
+  <div>
     <%= form.label :workdays, "勤務曜日" %><span style="color: red;">*</span><br>
     <div class="checkbox-group">
       <% ["月", "火", "水", "木", "金", "土"].each do |day| %>

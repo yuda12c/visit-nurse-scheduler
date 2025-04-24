@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_15_124333) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_24_080133) do
   create_table "accounts", charset: "utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -50,7 +50,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_15_124333) do
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
-    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "worktime", null: false
     t.string "eligibility", null: false
@@ -62,6 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_15_124333) do
     t.string "name"
     t.string "workdays"
     t.string "password_digest"
+    t.string "email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

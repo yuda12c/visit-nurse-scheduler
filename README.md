@@ -1,37 +1,61 @@
-# README
+## アプリケーション名
+訪問看護週間スケジュール立案アプリ
 
-## users
-Column	           | Type	  | Options
-------------------------------------------
-name	             | string	| null: false
-email	             | string	| null: false, unique: true
-encrypted_password | string	| null: false
-workdays           | string | null: false
-worktime           | string | null: false
-eligibility        | string | null: false
+## アプリケーション概要
+本アプリは、訪問看護ステーション向けのスケジュール・利用者管理ツールです。看護師やセラピストの勤務状況を把握しやすくし、利用者の情報と紐づけて、訪問スケジュールを簡単に管理できるように設計されています。
 
-  has_many :schedules  
-  has_many :clients, through: :schedules
+**主な想定ユーザー：**
+- 訪問看護ステーションの管理者・スタッフ
+- 訪問スケジュールの調整業務を行う職員
 
-## clients
-Column	           | Type	  | Options
-------------------------------------------
-name               | string	| null: false
-address	           | string	| null: false
-insurance        	 | string	| null: false
-addition           | string |
-memo               | string |
+## URL
+- 本番環境（Render）：https://visit-nurse-scheduler.onrender.com
 
-has_many :schedules  
-has_many :users, through: :schedules
+## テスト用アカウント
+- Basic認証ID : yuda
+- Basic認証パスワード : 1222
 
-## schedules
-user               | references	| null: false, foreign_key: true
-client             | references	| null: false, foreign_key: true
-weekday            | string	| null: false
-timeslot           | string	| null: false
-duration           | string	| null: false
-memo               | string	| 
+## 主な機能
+- カレンダーによるスケジュールの可視化
+- 同時間帯の複数予定を横並びで表示
+- スタッフの勤務時間・勤務曜日の登録
+- 利用者情報の登録（住所・保険情報・加算情報など）
+- タグによるスケジュール分類
+- JavaScriptによるスケジュール詳細の非同期表示・編集
 
-belongs_to :user  
-belongs_to :client
+## 使用技術
+- フロントエンド：HTML / CSS / JavaScript / Turbo
+- バックエンド：Ruby on Rails 7
+- データベース：PostgreSQL
+- 認証機能：Devise
+- デプロイ：Render
+
+## セットアップ方法（開発環境）
+
+リポジトリをクローン
+git clone https://github.com/yourname/visit-nurse-scheduler.git
+cd visit-nurse-scheduler
+
+必要なGemをインストール
+bundle install
+
+データベースを作成＆マイグレーション
+rails db:create
+rails db:migrate
+
+サーバー起動
+bin/dev
+
+
+## 工夫したポイント
+[実際の訪問看護業務を意識した設計]
+- 現場経験を活かし、「スタッフの勤務曜日」「勤務時間」「資格情報」など、実務に即した項目をDBスキーマに反映
+- 利用者情報には「保険情報」や「加算情報」も管理できるようにし、請求業務や訪問計画作成に配慮した構造に
+
+[スケジュール表示の工夫]
+- 同一時間帯に複数の予定がある場合は、1セルずつ横に並べて表示し、「1行目：名前」「2行目：時間」となるようにUIを調整。
+- JavaScriptを用いてスケジュール詳細を非同期で表示し、「閉じる・削除・編集」を同画面で操作可能にすることで、ページ遷移の手間を削減。
+
+[UI/UXの工夫]
+- 時間や曜日などの入力をセレクトボックスで選択できるようにし、直感的で入力ミスの少ないUIを実現。
+- スタッフ・患者登録画面では、日本語のバリデーションエラーメッセージを複数項目に分けて丁寧に表示。
