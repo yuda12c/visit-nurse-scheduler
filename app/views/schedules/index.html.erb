@@ -54,7 +54,7 @@
           <% rendered_cells["#{user.id}-#{time_slots[i]}"] = true %>
         <% end %>
 
-        <td class="schedule-cell" rowspan="<%= span %>">
+       <%= tag.td(class: "schedule-cell #{schedule.client.insurance.include?('医療') ? 'medical-schedule' : 'care-schedule'}", rowspan: span) do %>
           <button
             class="show-detail-button"
             data-id="<%= schedule.id %>"
@@ -62,7 +62,7 @@
             <%= schedule.client.name %>
           </button><br>
           <%= schedule.start_time.strftime("%H:%M") %>〜<%= schedule.end_time.strftime("%H:%M") %>
-        </td>
+        <% end %>
       <% else %>
         <td></td>
       <% end %>
