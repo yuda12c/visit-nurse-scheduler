@@ -12,12 +12,19 @@
     </div>
   <% end %>
 
-<div>
-  <%= form.label :user_id do %>
-    担当スタッフ <span style="color: red;">*</span>
-  <% end %>
-  <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "担当スタッフを選択" }, class: "input-select" %>
-</div>
+  <div>
+    <%= form.label :user_id do %>
+      担当スタッフ <span style="color: red;">*</span>
+    <% end %>
+    <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "担当スタッフを選択" }, class: "input-select" %>
+  </div>
+
+  <div>
+    <%= form.label :user_id do %>
+      サブ担当スタッフ 
+    <% end %>
+    <%= form.collection_select :sub_user_id, User.all, :id, :name, { prompt: "サブ担当スタッフを選択" }, class: "input-select" %>
+  </div>
 
   <div>
     <%= form.label :client_id do %>

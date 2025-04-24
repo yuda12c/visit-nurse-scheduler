@@ -1,5 +1,6 @@
 class Schedule < ApplicationRecord
   belongs_to :user
+  belongs_to :sub_user, class_name: "User", optional: true
   belongs_to :client
 
   validates :user_id, presence: true 

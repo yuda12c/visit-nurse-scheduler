@@ -41,7 +41,7 @@
   next if s.start_time.nil?
 
   rounded_start = s.start_time.change(min: s.start_time.min < 30 ? 0 : 30)
-  s.user_id == user.id && rounded_start.strftime("%H:%M") == time
+  (s.user_id == user.id || s.sub_user_id == user.id) && rounded_start.strftime("%H:%M") == time
 end %>
 
 <td class="schedule-cell">

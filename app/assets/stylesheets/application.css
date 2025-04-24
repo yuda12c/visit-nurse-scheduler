@@ -781,3 +781,15 @@ textarea {
   display: flex;
   align-items: center;
 }
+
+.users_schedule {
+  display: flex;
+  align-items: flex-end;  
+  gap: 20px;             
+  margin-bottom: 16px;   
+}
+
+.users_schedule div {
+  display: flex;
+  flex-direction: column;
+}

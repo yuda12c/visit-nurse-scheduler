@@ -1,9 +1,16 @@
 <div style="background: white; padding: 20px; border-radius: 10px;">
   <%= form_with(model: schedule, remote: true) do |form| %>
-
+    
+    <div class = "users_schedule">
     <div>
       <%= form.label :user_id, "担当者" %>
       <%= form.collection_select :user_id, User.all, :id, :name, {}, { class: "form-control" } %>
+    </div>
+
+    <div>
+    <%= form.label :sub_user_id, "サブ担当" %>
+    <%= form.collection_select :sub_user_id, User.all, :id, :name, {}, { class: "input-select" } %>
+    </div>
     </div>
 
     <div>
