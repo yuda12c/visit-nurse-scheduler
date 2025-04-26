@@ -2,7 +2,7 @@
 <h1><%= @selected_weekday %>のスケジュール一覧</h1>
 <% time_slots = ["08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00",
                  "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"] %>
-
+  
 <div class = "weekday_index">
   <% %w(月 火 水 木 金 土 ).each do |day| %>
     <%= link_to "#{day}曜日", schedules_path(weekday: day), style: "margin-right: 10px;" %>
@@ -15,61 +15,56 @@
 <div class ="user-new">
 <%= link_to "スタッフ新規登録", new_user_path, class: "button" %><br></div>
 </div>
+<div class="calendar-header">
+  <div class="time-header"></div> <!-- 時間帯列 -->
+  <% @users.each do |user| %>
+    <div class="staff-header">
+      <%= link_to user.name, user_path(user) %><br>
+      <small><%= user.worktime %></small>
+    </div>
+  <% end %>
+</div>
 
-<table class="schedule-table" border="1" cellpadding="8" cellspacing="0">
-  <thead>
-    <tr>
-      <th>時間帯</th>
+<div class="calendar-wrapper">
+  <!-- 背景グリッド -->
+  <div class="calendar-grid">
+    <% time_slots.each do |time| %>
+      <div class="grid-time"><%= time %></div>
       <% @users.each do |user| %>
-        <th><%= link_to user.name, user_path(user) %></th>
-      <% end %>
-    </tr>
-  </thead>
-
-<tbody>
-<% rendered_cells = {} %>
-
-<% time_slots.each_with_index do |time, index| %>
-  <tr>
-    <td><%= time %></td>
-    <% @users.each do |user| %>
-      <% key = "#{user.id}-#{time}" %>
-      <% if rendered_cells[key] %>
-        <% next %>
-      <% end %>
-
-      <% schedule = @schedules.find do |s|
-        s.start_time &&
-        (s.user_id == user.id || s.sub_user_id == user.id) &&
-        s.start_time.strftime("%H:%M") == time
-      end %>
-
-      <% if schedule %>
-        <% start_index = time_slots.index(schedule.start_time.strftime("%H:%M")) %>
-        <% end_index = time_slots.index(schedule.end_time.strftime("%H:%M")) || start_index + 1 %>
-        <% span = end_index - start_index %>
-
-        <% # 同じ時間帯に他の担当者にも表示しないよう記録 %>
-        <% (start_index...end_index).each do |i| %>
-          <% rendered_cells["#{user.id}-#{time_slots[i]}"] = true %>
-        <% end %>
-
-       <%= tag.td(class: "schedule-cell #{schedule.client.insurance.include?('医療') ? 'medical-schedule' : 'care-schedule'}", rowspan: span) do %>
-          <button
-            class="show-detail-button"
-            data-id="<%= schedule.id %>"
-            style="background:none; border:none; color:blue; text-decoration:underline; cursor:pointer;">
-            <%= schedule.client.name %>
-          </button><br>
-          <%= schedule.start_time.strftime("%H:%M") %>〜<%= schedule.end_time.strftime("%H:%M") %>
-        <% end %>
-      <% else %>
-        <td></td>
+        <div class="grid-cell"></div>
       <% end %>
     <% end %>
-  </tr>
+  </div>
+
+  <!-- スケジュールをここに絶対配置 -->
+  <div class="calendar-schedules">
+   <% @schedules.each do |schedule| %>
+  <% [schedule.user_id, schedule.sub_user_id].compact.each do |uid| %> 
+    <% user_index = @users.index { |u| u.id == uid } %>
+    <% next unless user_index %>
+
+    <% start_minutes = schedule.start_time.hour * 60 + schedule.start_time.min %>
+    <% top_offset = (start_minutes - 510) / 30 * 60 %>
+    <% left_offset = user_index * 120 %> 
+    <% duration_minutes = (schedule.end_time - schedule.start_time) / 60 %>
+    <% height = (duration_minutes / 30) * 60 %>
+
+    <div class="schedule-card <%= schedule.client.insurance.include?('医療') ? 'medical' : 'care' %>"
+      style="top: <%= top_offset %>px; left: <%= left_offset %>px; height: <%= height %>px;">
+      
+      <a href="#" 
+        class="show-detail-button" 
+        data-id="<%= schedule.id %>"
+        style="color: blue; text-decoration: underline; display: block;">
+        <%= schedule.client.name %>
+      </a>
+      <br>
+      <%= schedule.start_time.strftime("%H:%M") %>〜<%= schedule.end_time.strftime("%H:%M") %>
+    </div>
+
+  <% end %>
 <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 <!-- 詳細モーダルの表示先 -->
 <div id="schedule-detail-modal" style="display: none;"></div>

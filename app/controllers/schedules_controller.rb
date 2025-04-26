@@ -48,11 +48,9 @@ class SchedulesController < ApplicationController
   def update
     @schedule = Schedule.find(params[:id])
     if @schedule.update(schedule_params)
-      respond_to do |format|
-        format.js   # update.js.erb を返す
-      end
+      redirect_to schedules_path(weekday: @schedule.weekday), notice: 'スケジュールを更新しました'
     else
-      render partial: "form", locals: { schedule: @schedule }
+      render :edit, status: :unprocessable_entity
     end
   end
 

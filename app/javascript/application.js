@@ -5,23 +5,29 @@ import "controllers"
 
 document.addEventListener("DOMContentLoaded", () => {
   // 詳細表示（schedule-detail）
-  document.addEventListener("click", function (e) {
-    if (e.target && e.target.classList.contains("show-detail-button")) {
-      const scheduleId = e.target.dataset.id;
+  document.addEventListener('turbo:load', () => {
+    const buttons = document.querySelectorAll('.show-detail-button');
+    
+    buttons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault(); // デフォルトのリンク動作を止める
   
-      fetch(`/schedules/${scheduleId}`, {
-        headers: {
-          "Accept": "text/html"
-        }
-      })
-        .then(response => response.text())
-        .then(html => {
-          const modal = document.getElementById("schedule-detail-modal");
-          modal.innerHTML = html;
-          modal.style.display = "block";
-        });
-    }
+        const id = button.dataset.id; // データIDを取得
+  
+        fetch(`/schedules/${id}`)
+          .then(response => response.text())
+          .then(html => {
+            const modal = document.getElementById('schedule-detail-modal');
+            modal.innerHTML = html;
+            modal.style.display = 'block'; // モーダルを表示
+          })
+          .catch(error => {
+            console.error('エラー:', error);
+          });
+      });
+    });
   });
+  
 
   // 編集ボタン（モーダル内に後から追加される → イベントデリゲーション！）
   document.addEventListener("click", function (e) {
