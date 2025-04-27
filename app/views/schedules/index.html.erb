@@ -15,8 +15,9 @@
 <div class ="user-new">
 <%= link_to "スタッフ新規登録", new_user_path, class: "button" %><br></div>
 </div>
-<div class="calendar-header">
-  <div class="time-header"></div> <!-- 時間帯列 -->
+
+<div class="calendar-header" style="grid-template-columns: 80px repeat(<%= @users.size %>, 120px); width: calc(80px + <%= @users.size * 120 %>px);">
+  <div class="time-header"></div>
   <% @users.each do |user| %>
     <div class="staff-header">
       <%= link_to user.name, user_path(user) %><br>
@@ -25,45 +26,39 @@
   <% end %>
 </div>
 
-<div class="calendar-wrapper">
-  <!-- 背景グリッド -->
-  <div class="calendar-grid">
+<div class="calendar-wrapper" style="position: relative; width: calc(80px + <%= @users.size * 120 %>px);">
+ <div class="calendar-grid" style="grid-template-columns: 80px repeat(<%= @users.size %>, 120px); width: calc(80px + <%= @users.size * 120 %>px);">
     <% time_slots.each do |time| %>
       <div class="grid-time"><%= time %></div>
-      <% @users.each do |user| %>
+      <% @users.each do |_user| %>
         <div class="grid-cell"></div>
       <% end %>
     <% end %>
   </div>
 
-  <!-- スケジュールをここに絶対配置 -->
-  <div class="calendar-schedules">
-   <% @schedules.each do |schedule| %>
-  <% [schedule.user_id, schedule.sub_user_id].compact.each do |uid| %> 
-    <% user_index = @users.index { |u| u.id == uid } %>
-    <% next unless user_index %>
+  <div class="calendar-schedules" style="position: absolute; top: 0; left: 80px; width: <%= @users.size * 120 %>px;">
+    <% @schedules.each do |schedule| %>
+      <% [schedule.user_id, schedule.sub_user_id].compact.each do |uid| %> 
+        <% user_index = @users.index { |u| u.id == uid } %>
+        <% next unless user_index %>
 
-    <% start_minutes = schedule.start_time.hour * 60 + schedule.start_time.min %>
-    <% top_offset = (start_minutes - 510) / 30 * 60 %>
-    <% left_offset = user_index * 120 %> 
-    <% duration_minutes = (schedule.end_time - schedule.start_time) / 60 %>
-    <% height = (duration_minutes / 30) * 60 %>
+        <% start_minutes = schedule.start_time.hour * 60 + schedule.start_time.min %>
+        <% top_offset = (start_minutes - 510) / 30 * 60 %>
+        <% left_offset = user_index * 120 %> 
+        <% duration_minutes = (schedule.end_time - schedule.start_time) / 60 %>
+        <% height = (duration_minutes / 30) * 60 %>
 
-    <div class="schedule-card <%= schedule.client.insurance.include?('医療') ? 'medical' : 'care' %>"
-      style="top: <%= top_offset %>px; left: <%= left_offset %>px; height: <%= height %>px;">
-      
-      <a href="#" 
-        class="show-detail-button" 
-        data-id="<%= schedule.id %>"
-        style="color: blue; text-decoration: underline; display: block;">
-        <%= schedule.client.name %>
-      </a>
-      <br>
-      <%= schedule.start_time.strftime("%H:%M") %>〜<%= schedule.end_time.strftime("%H:%M") %>
-    </div>
-
-  <% end %>
-<% end %>
+        <div class="schedule-card <%= schedule.client.insurance.include?('医療') ? 'medical' : 'care' %>"
+          style="top: <%= top_offset %>px; left: <%= left_offset %>px; height: <%= height %>px;">
+          <a href="#" class="show-detail-button" data-id="<%= schedule.id %>"
+             style="color: blue; text-decoration: underline; display: block;">
+            <%= schedule.client.name %>
+          </a>
+          <br>
+          <%= schedule.start_time.strftime("%H:%M") %>〜<%= schedule.end_time.strftime("%H:%M") %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <!-- 詳細モーダルの表示先 -->
