@@ -41,12 +41,11 @@
       <% [schedule.user_id, schedule.sub_user_id].compact.each do |uid| %> 
         <% user_index = @users.index { |u| u.id == uid } %>
         <% next unless user_index %>
-
-        <% start_minutes = schedule.start_time.hour * 60 + schedule.start_time.min %>
-        <% top_offset = (start_minutes - 510) / 30 * 60 %>
-        <% left_offset = user_index * 120 %> 
-        <% duration_minutes = (schedule.end_time - schedule.start_time) / 60 %>
-        <% height = (duration_minutes / 30) * 60 %>
+          <% start_minutes = schedule.start_time.hour * 60 + schedule.start_time.min %>
+          <% end_minutes = schedule.end_time.hour * 60 + schedule.end_time.min %>
+          <% top_offset = (start_minutes - 510) * 2 %>
+          <% height = (end_minutes - start_minutes) * 2 %>
+          <% left_offset = user_index * 120 %>
 
         <div class="schedule-card <%= schedule.client.insurance.include?('医療') ? 'medical' : 'care' %>"
           style="top: <%= top_offset %>px; left: <%= left_offset %>px; height: <%= height %>px;">
