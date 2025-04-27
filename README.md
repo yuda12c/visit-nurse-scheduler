@@ -23,6 +23,23 @@
 - タグによるスケジュール分類
 - JavaScriptによるスケジュール詳細の非同期表示・編集
 
+
+## 実動作画面
+- スタッフ新規動画
+[![Image from Gyazo](https://i.gyazo.com/ab6c8f7793aedb7fc1cf198f8f0c2cba.gif)](https://gyazo.com/ab6c8f7793aedb7fc1cf198f8f0c2cba)
+
+- スケジュール登録動画
+[![Image from Gyazo](https://i.gyazo.com/5bab23c99d3eefd1ea120134bbf22a0b.gif)](https://gyazo.com/5bab23c99d3eefd1ea120134bbf22a0b)
+
+- スケジュール更新動画
+[![Image from Gyazo](https://i.gyazo.com/221bed83e28d75d046d29ead7916f31f.gif)](https://gyazo.com/221bed83e28d75d046d29ead7916f31f)
+
+
+## 実装予定の機能
+- 週に何日、何曜日予定が入っているか患者詳細に記載
+- ログイン機能実装し、閲覧、編集の権限を分ける
+
+
 ## 使用技術
 - フロントエンド：HTML / CSS / JavaScript / Turbo
 - バックエンド：Ruby on Rails 7
@@ -45,7 +62,6 @@ rails db:migrate
 
 サーバー起動
 bin/dev
-
 
 ## 工夫したポイント
 [実際の訪問看護業務を意識した設計]
