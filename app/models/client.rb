@@ -2,10 +2,10 @@ class Client < ApplicationRecord
   has_many :schedules, dependent: :destroy
   has_many :users, through: :schedules
 
-  serialize :insurance, Array, coder: JSON
+  serialize :insurance, type: Array, coder: JSON
 
   validates :name, :address, presence: true
-  validate :insurance_presence  # ← カスタムバリデーションを追加
+  validate :insurance_presence  
 
   private
 

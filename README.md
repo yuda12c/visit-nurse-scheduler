@@ -35,10 +35,22 @@
 [![Image from Gyazo](https://i.gyazo.com/221bed83e28d75d046d29ead7916f31f.gif)](https://gyazo.com/221bed83e28d75d046d29ead7916f31f)
 
 
+##　テストコード結果
+[![Image from Gyazo](https://i.gyazo.com/d70ea9a18d6b205739af0f41e67fb7e1.png)](https://gyazo.com/d70ea9a18d6b205739af0f41e67fb7e1)
+
+[![Image from Gyazo](https://i.gyazo.com/5a343028d70d345ced5569c033b66194.png)](https://gyazo.com/5a343028d70d345ced5569c033b66194)
+
+[![Image from Gyazo](https://i.gyazo.com/85ab03662bf105f0ced4a6678634e6bb.png)](https://gyazo.com/85ab03662bf105f0ced4a6678634e6bb)
+
 ## 実装予定の機能
 - 週に何日、何曜日予定が入っているか患者詳細に記載
 - ログイン機能実装し、閲覧、編集の権限を分ける
 
+## データベース設計
+
+
+## 画面遷移図
+[![Image from Gyazo](https://i.gyazo.com/af36a526796f0e9432c1b23877869933.png)](https://gyazo.com/af36a526796f0e9432c1b23877869933)
 
 ## 使用技術
 - フロントエンド：HTML / CSS / JavaScript / Turbo
